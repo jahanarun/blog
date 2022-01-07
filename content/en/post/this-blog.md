@@ -4,7 +4,6 @@ date: 2022-01-07T16:01:03+05:30
 tags: []
 featured_image: ""
 description: ""
-draft: true
 ---
 Let the first post in this blog be about setting up this blog.
 
