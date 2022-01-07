@@ -1,6 +1,6 @@
 ---
 title: "The Dexome Blog"
 # featured_image: '/images/gohugo-default-sample-hero-image.jpg'
-description: "The notes from my experiments"
+description: "Notes from my experiments"
 ---
-I have huge collections of notes from my experiments with homelab and software development. I intend to convert those into blogs here and share them with the world.
+Over the years, I have gathered notes on my experience and experiments in homelab and software development. I intend to share them in this blog.
