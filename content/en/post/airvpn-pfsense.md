@@ -54,13 +54,15 @@ Go to "Tunnels" tab and click "Add Tunnel".
 
 
 #### In the "Tunnel Configuration"
-* Check "Enable Tunnel"
-* Add a good understandable description like "AirVPN Wireguard tunnel"
-* Set the "Listen port" to the value present in the "Endpoint" field of the config. In my case, it is **1637**
+* Check "Enable Tunnel".
+* Add a good understandable description like "AirVPN Wireguard tunnel".
+* Set the "Listen port" to the value present in the "Endpoint" field of the config. In my case, it is **1637**.
 * In "Interface Keys", copy and paste the "PrivateKey" field from config and press tab key. You should see the "Public Key" text auto filled.
 
 #### In the "Interface Configuration"
-* Enter "Interface Address" and the CIDR value from config's *Interface* section
+* Enter "Interface Address" and the CIDR value from config's *Interface* section.
+
+*CIDR act as subnet mask. Read more about it [here]("https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#Subnet_masks")*.
 
 Save the tunnel configuration by clicking "Save Tunnel".
 
@@ -74,7 +76,7 @@ Go to "Peers" tab and click "Add Peer".
 
 * Check "Enable Peer"
 * In "Tunnel", select the tunnel which was created in previous step.
-* Add a good understandable description in "Description
+* Add a good understandable description in "Description".
 * Uncheck "Dynamic" in Dynamic Endpoint.
 * Now two new textboxes will appear. Enter the Endpoint (in our case, it's sg.vpn.airdns.org) and Endpoint port (1637, in our case).
 * Keep Alve: 15 (in our case).
@@ -89,7 +91,7 @@ Save the peer configuration by clicking "Save Peer".
 *Final peer configuration should look something like this.*
 ![](/images/wireguard-peer-configuration.png)
 
-#### Getting your IP address from AirVPN
+#### Getting your IP address from AirVPN {#getipaddress}
 Once the above steps are done, pfSense would have connected to AirVPN through WireGuard. But we wouldn't be able to use it yet as we haven't configured the Interface yet.
 Before we proceed for Interface configuration, let's first get the IP address.
 
@@ -115,11 +117,11 @@ Click "Add" and you see it assigned to an interface. Click on the interface link
 * Enter a Description, say "AirVPN_WireGuard"
 * In IPv4 Configuration Type, select "Static IPv4"
 * In IPv4 Address: (use the ip address from above step)
-* Select `31` as CIDR value
+* Select **`32`** as CIDR value
 * IPv4 Upstream gateway: Click "Add a new gateway"
   * In the popup, uncheck "Default gateway"
   * Gateway name: AirVPN_WIREGUARD_GW
-  * Gateway IPv4: Same ip address from above step.
+  * Gateway IPv4: Same ip address from [above step]({{<ref "airvpn-pfsense.md#getipaddress" >}}).
   * Click "Add"
 
 *The final configuration should look like this.*
@@ -135,10 +137,8 @@ On top bar, go to Firewall > NAT > Outbound
 #### Firewall Rules
 On top bar, go to Firewall > Rules > LAN
 
-`
-Since I am using VLANs, I am going to an interface named VL70_VPN
+*You are not limited to LAN interface. If you have configured VLANs, you can use them as well.*
 
-`
 Set the Gateway as `AirVPN_WIREGUARD_GW` to the rules which want to use VPN.
 
 
