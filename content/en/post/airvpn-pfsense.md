@@ -9,18 +9,18 @@ pfSense has had difficult times with WireGuard, but that's changing quite fast t
 
 Let's put the high-level details on what we will be doing here:
 
-1. Enable (experimental) support for WireGuard in AirVPN
-2. Download config file from AirVPN
-3. Install WireGuard package in pfSense
-4. Configure WireGuard settings in pfSense
+1. [Enable (experimental) support for WireGuard in AirVPN]({{<ref "airvpn-pfsense.md#enableexperimental" >}})
+2. [Download config file from AirVPN]({{<ref "airvpn-pfsense.md#downloadconfig" >}})
+3. [Install WireGuard package in pfSense]({{<ref "airvpn-pfsense.md#installwireguard" >}})
+4. [Configure WireGuard settings in pfSense]({{<ref "airvpn-pfsense.md#configurewireguard" >}})
 
-## 1. Enable (experimental) support for WireGuard in AirVPN
+## 1. Enable (experimental) support for WireGuard in AirVPN {#enableexperimental}
 
 Go to [Airvpn Preferences](https://airvpn.org/preferences) and enable *Access to BETA features*
 
 ![Enable beta in preferences](/images/airvpn-enable-beta.png "a title")
 
-## 2. Download config file from AirVPN
+## 2. Download config file from AirVPN {#downloadconfig}
 
 Now, goto [Config generator](https://airvpn.org/generator/) and you can see *WireGuard* available for selection
 
@@ -30,7 +30,7 @@ Now, goto [Config generator](https://airvpn.org/generator/) and you can see *Wir
 Then, click *Download* in the bottom of the page after making your server selection.
 
 
-## 3. Install WireGuard package in pfSense
+## 3. Install WireGuard package in pfSense {#installwireguard}
 
 
 
@@ -38,7 +38,7 @@ Now log into PFSENSE. Go to System > Package Manager and make sure you have Wire
 
 ![](/images/pfsense-wireguard-package.png)If you don't, just click "Available Packages" and search for Wireguard, and install it.
 
-## 4. Configure WireGuard settings in pfSense
+## 4. Configure WireGuard settings in pfSense {#configurewireguard}
 Now in the top bar, go to VPN > Wireguard > Settings and make sure its enabled.
 
 ![](/images/pfsense-wireguard-enabled.png)
