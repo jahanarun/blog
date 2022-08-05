@@ -1,9 +1,13 @@
 ---
-title: "AirVPN with Wireguard in pfSense"
-date: 2022-02-07T16:56:03+05:30
-tags: ["guide", "airvpn", "pfsense", "wireguard"]
+date: "2022-02-07T16:56:03+05:30"
+description: Make pfSense work with AirVPN
 featured_image: ""
-description: "Make pfSense work with AirVPN"
+tags:
+- guide
+- airvpn
+- pfsense
+- wireguard
+title: AirVPN with Wireguard in pfSense
 ---
 pfSense has had difficult times with WireGuard, but that's changing quite fast these days. Now, pfSense has a good stable package for WireGuard which can be used in home/homelab setup (I wouldn't use it in a production environment, yet).
 

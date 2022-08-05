@@ -1,9 +1,9 @@
 ---
-title: "This Blog"
-date: 2022-01-07T16:01:03+05:30
-tags: []
-featured_image: ""
+date: "2022-01-07T16:01:03+05:30"
 description: ""
+featured_image: ""
+tags: []
+title: This Blog
 ---
 Let the first post in this blog be about setting up this blog.
 

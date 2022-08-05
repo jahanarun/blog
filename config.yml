@@ -1,0 +1,63 @@
+name: The Dexome blog
+license: MIT
+licenselink: https://github.com/theNewDynamic/gohugo-theme-ananke/blob/master/LICENSE.md
+description: The notes from my experiments
+homepage: https://blog.dexome.com
+tags:
+  - website
+  - starter
+  - responsive
+  - Disqus
+  - blog
+  - Tachyons
+  - Multilingual
+  - Stackbit
+features:
+  - posts
+  - shortcodes
+  - related content
+  - comments
+min_version: 0.64.0
+theme: ananke
+author:
+  name: dexter
+  homepage: https://blog.dexome.com/
+  title: The Dexome blog
+  baseURL: https://blog.dexome.com
+  languageCode: en-us
+  DefaultContentLanguage: en
+  SectionPagesMenu: main
+  Paginate: 3
+  googleAnalytics: ""
+  enableRobotsTXT: true
+languages:
+  en:
+    title: Dexome
+    weight: 1
+    contentDir: content/en
+sitemap:
+  changefreq: monthly
+  priority: 0.5
+  filename: sitemap.xml
+params:
+  text_color: ""
+  author: ""
+  favicon: ""
+  site_logo: /images/dexome.png
+  description: The notes from my experiments
+  background_color_class: bg-black
+  featured_image: ""
+  recent_posts_number: 2
+  custom_css:
+  - css/syntax-monokai.css
+markup:
+  highlight:
+    codeFences: true
+    guessSyntax: false
+    hl_Lines: ""
+    lineNoStart: 1
+    lineNos: false
+    lineNumbersInTable: true
+    noClasses: false
+    style: monokai  # looks like this has no effect, only imported CSS matters
+    tabWidth: 4

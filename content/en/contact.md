@@ -1,11 +1,10 @@
 ---
-title: Contact
-featured_image: "images/notebook.jpg"
-omit_header_text: true
 description: We'd love to hear from you
-type: page
+featured_image: images/notebook.jpg
 menu: main
-
+omit_header_text: true
+title: Contact
+type: page
 ---
 
 {{< form-contact action="https://formspree.io/f/meqnonvz" >}}
