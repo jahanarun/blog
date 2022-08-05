@@ -4,6 +4,7 @@ description: Simple way to sync photos from your mobile devices to nextcloud
 featured_image: ""
 tags: []
 title: Photos Sync Nextcloud Photoprism
+draft: true
 ---
 {{<strike>}}We all want to have our photos taken on our mobile phones to be available in some other cloud/storage server/computer, so that we could free up storage on our phones.
 
@@ -19,7 +20,7 @@ The ideal tools to use in this case would be [Photoprism](https://github.com/pho
 1. Configure Photoprism
 1. Mount Nextcloud directories to Photoprism
 
-```
+```dockerfile
       device: ":/docker/lidarr"
   torrents:
     driver: local
