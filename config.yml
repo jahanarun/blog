@@ -1,7 +1,7 @@
 name: The Dexome blog
 license: MIT
 licenselink: https://github.com/theNewDynamic/gohugo-theme-ananke/blob/master/LICENSE.md
-description: The notes from my experiments
+description: Notes from my experiments
 homepage: https://blog.dexome.com
 tags:
   - website
@@ -18,7 +18,7 @@ features:
   - related content
   - comments
 min_version: 0.64.0
-theme: ananke
+theme: hugo-theme-stack
 author:
   name: dexter
   homepage: https://blog.dexome.com/
@@ -50,14 +50,91 @@ params:
   recent_posts_number: 2
   custom_css:
   - css/syntax-monokai.css
+  colorScheme:
+      # Display toggle
+      toggle: true
+      # Available values: auto, light, dark
+      default: auto
+  imageProcessing:
+      cover:
+          enabled: true
+      content:
+          enabled: true
+  widgets:
+      homepage:
+          - type: search
+          - type: archives
+            params:
+                limit: 5
+          - type: categories
+            params:
+                limit: 10
+          - type: tag-cloud
+            params:
+                limit: 10
+      page:
+          - type: toc
+  sidebar:
+      emoji: 🍥
+      subtitle: Notes from my experiments
+      avatar:
+          enabled: true
+          local: true
+          src: img/avatar.png
+  dateFormat:
+      published: Jan 02, 2006
+      lastUpdated: Jan 02, 2006 15:04 MST
+  footer:
+      since: 2020
+      customText: Test  text
+  article:
+      math: false
+      toc: true
+      readingTime: true
+      license:
+          enabled: true
+          default: Licensed under CC BY-NC-SA 4.0
+  comments:
+      enabled: true
+      provider: utterances
+      utterances:
+          repo: "jahanarun/blog"
+          issueTerm: "title"
+          label: "utterance"
 markup:
+  goldmark:
+      renderer:
+          ## Set to true if you have HTML content inside Markdown
+          unsafe: false
+  tableOfContents:
+      endLevel: 4
+      ordered: true
+      startLevel: 2
   highlight:
-    codeFences: true
-    guessSyntax: false
-    hl_Lines: ""
-    lineNoStart: 1
-    lineNos: false
-    lineNumbersInTable: true
-    noClasses: false
-    style: monokai  # looks like this has no effect, only imported CSS matters
-    tabWidth: 4
+      noClasses: false
+      codeFences: true
+      guessSyntax: true
+      lineNoStart: 1
+      lineNos: true
+      lineNumbersInTable: true
+      tabWidth: 4
+  # highlight:
+  #   codeFences: true
+  #   guessSyntax: false
+  #   hl_Lines: ""
+  #   lineNoStart: 1
+  #   lineNos: false
+  #   lineNumbersInTable: true
+  #   noClasses: false
+  #   style: monokai  # looks like this has no effect, only imported CSS matters
+  #   tabWidth: 4
+related:
+  includeNewer: true
+  threshold: 60
+  toLower: false
+  indices:
+      - name: tags
+        weight: 100
+
+      - name: categories
+        weight: 200
