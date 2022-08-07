@@ -66,16 +66,16 @@ params:
       - type: archives
         params:
           limit: 5
-      - type: categories
-        params:
-          limit: 10
+      # - type: categories
+      #   params:
+      #     limit: 10
       - type: tag-cloud
         params:
           limit: 10
     page:
       - type: toc
   sidebar:
-    emoji: 🕯️
+    # emoji: 🕯️
     subtitle: Notes from my experiments
     avatar:
       enabled: true
@@ -139,7 +139,14 @@ related:
     - name: categories
       weight: 200
 menu:
-  main: []
+  main:
+  - identifier: home
+    name: Home
+    url: /
+    weight: -100
+    params:
+      icon: home
+      newTab: true
 
   social:
     - identifier: github
@@ -147,3 +154,8 @@ menu:
       url: https://github.com/jahanarun
       params:
         icon: brand-github
+    - identifier: linkedin
+      name: LinkedIn
+      url: https://www.linkedin.com/in/jahanarun
+      params:
+        icon: brand-linkedin
