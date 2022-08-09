@@ -1,13 +1,13 @@
 ---
 date: "2022-08-04T22:32:03+05:30"
-description: Simple way to sync photos from your mobile devices to nextcloud
+description: Simple way to view photos from your family's mobile devices synced to nextcloud
 featured_image: ""
 tags:
 - guide
 - nextcloud
 - photoprism
 - docker
-title: Photos Sync Nextcloud Photoprism
+title: Unified gallery view of all photos from your family
 draft: false
 ---
 
@@ -151,3 +151,5 @@ services:
 ## Key mentions
 The key thing to note in the above docker-compose configuration is the `volume` section of Photoprism.
 The two volumes `photoprism-<user>` would be mapped to the same location where the Nextcloud data of the users are. In this example, our nextcloud data is mapped to an NFS share. Photoprism also uses the same root path but drilled into it. You can also notice that the data volumes are mapped as readonly in Photoprism.
+
+That's it! Now you can go into the Photoprism app and find the folders in `Originals` section.
