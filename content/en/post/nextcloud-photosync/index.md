@@ -16,9 +16,7 @@ Let's say you want all the photos taken by your family (with multiple devices) t
 The ideal tools to use in this case would be [Photoprism](https://github.com/photoprism/photoprism) and [Nextcloud](https://github.com/nextcloud).
 
 ## Docker compose files
-I use below docker compose files to setup Nextcloud and Photoprism.
-
-### nextcloud.yml
+I use below docker compose setup Nextcloud and Photoprism.
 
 ```dockerfile
 version: "3.5"
@@ -31,6 +29,20 @@ volumes:
       type: "nfs4"
       o: addr=10.100.50.20,rw,noatime,rsize=1048576,wsize=1048576,tcp,timeo=14
       device: ":/nextcloud/data"
+  photoprism-db:
+  photoprism-storage:
+  photoprism-alice:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: addr=10.100.50.20,rw,noatime,rsize=1048576,wsize=1048576,tcp,timeo=14
+      device: ":/nextcloud/data/alice/files/Photos/Camera"
+  photoprism-dennis:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: addr=10.100.50.20,rw,noatime,rsize=1048576,wsize=1048576,tcp,timeo=14
+      device: ":/nextcloud/data/dennis/files/Photos/Camera"
 
 services:
   nextcloud-db:
@@ -75,28 +87,6 @@ services:
     depends_on:
       - nextcloud-db
 
-
-```
-### photoprism.yml
-
-```dockerfile
-version: "3.5"
-volumes:
-  photoprism-db:
-  photoprism-storage:
-  photoprism-alice:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: addr=10.100.50.20,rw,noatime,rsize=1048576,wsize=1048576,tcp,timeo=14
-      device: ":/nextcloud/data/alice/files/Photos/Camera"
-  photoprism-dennis:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: addr=10.100.50.20,rw,noatime,rsize=1048576,wsize=1048576,tcp,timeo=14
-      device: ":/nextcloud/data/dennis/files/Photos/Camera"
-
 services:
   photoprism:
     image: photoprism/photoprism:latest
@@ -128,6 +118,10 @@ services:
         target: /photoprism/storage
         volume:
           nocopy: true
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.photoprism_index.schedule: "@every 1h"
+      ofelia.job-exec.photoprism_index.command: "photoprism index --cleanup"
 
   photoprism-mariadb:
     restart: unless-stopped
@@ -147,9 +141,21 @@ services:
       MYSQL_USER: photoprism
       MYSQL_PASSWORD: ${PHOTOPRISM_DATABASE_PASSWORD}
 
+  ofelia:
+    restart: unless-stopped
+    image: mcuadros/ofelia:latest
+    container_name: ofelia
+    depends_on:
+      - photoprism
+      - nextcloud
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 ```
 ## Key mentions
 The key thing to note in the above docker-compose configuration is the `volume` section of Photoprism.
 The two volumes `photoprism-<user>` would be mapped to the same location where the Nextcloud data of the users are. In this example, our nextcloud data is mapped to an NFS share. Photoprism also uses the same root path but drilled into it. You can also notice that the data volumes are mapped as readonly in Photoprism.
+
+I use [ofelia](https://github.com/mcuadros/ofelia) to run to schedule scan job on photoprism. This will update the index on Photoprism so that it reflects any photos addition, modification or deletion that could have happened in Nextcloud.
 
 That's it! Now you can go into the Photoprism app and find the folders in `Originals` section.
