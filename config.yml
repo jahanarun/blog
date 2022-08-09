@@ -29,14 +29,14 @@ author:
   SectionPagesMenu: main
   Paginate: 3
   googleAnalytics: ""
-  enableRobotsTXT: true
+  enableRobotsTXT: false
 languages:
   en:
     title: Dexome
     weight: 1
     contentDir: content/en
 sitemap:
-  changefreq: monthly
+  changefreq: weekly
   priority: 0.5
   filename: sitemap.xml
 params:
