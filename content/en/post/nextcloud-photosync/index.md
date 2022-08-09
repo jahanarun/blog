@@ -1,19 +1,25 @@
 ---
 date: "2022-08-04T22:32:03+05:30"
-description: Simple way to view photos from your family's mobile devices synced to nextcloud
+description: Simple way to view photos from all of your family's mobile devices in one place
 featured_image: ""
 tags:
 - guide
 - nextcloud
 - photoprism
 - docker
-title: Unified gallery view of all photos from your family
+- ofelia
+- unified
+- photo
+title: Connect Photoprism with Nextcloud
 draft: false
 ---
 
-Let's say you want all the photos taken by your family (with multiple devices) to be available in one place so that you can have a unified gallery look.
+[Nextcloud](https://github.com/nextcloud) is a great app to be used as your private cloud. Once you have setup Nextcloud and have created user accounts in it, you can then use the phone app to configure auto-sync of your phone's camera photos.
+This works well for every user individually.
 
-The ideal tools to use in this case would be [Photoprism](https://github.com/photoprism/photoprism) and [Nextcloud](https://github.com/nextcloud).
+But now, what if you want all the photos taken by your family (with multiple devices) to be available in one place so that you can have a unified gallery look.
+
+The ideal tool to use in this case would be [Photoprism](https://github.com/photoprism/photoprism) and configure it to use Nextcloud's data folder.
 
 ## Docker compose files
 I use below docker compose setup Nextcloud and Photoprism.
@@ -154,8 +160,9 @@ services:
 ```
 ## Key mentions
 The key thing to note in the above docker-compose configuration is the `volume` section of Photoprism.
-The two volumes `photoprism-<user>` would be mapped to the same location where the Nextcloud data of the users are. In this example, our nextcloud data is mapped to an NFS share. Photoprism also uses the same root path but drilled into it. You can also notice that the data volumes are mapped as readonly in Photoprism.
+The two volumes `photoprism-<user>` would be mapped to the same location where the Nextcloud data of the users are. In this example, our Nextcloud data is mapped to an NFS share and Photoprism uses the same directory for its photo directory.
 
-I use [ofelia](https://github.com/mcuadros/ofelia) to run to schedule scan job on photoprism. This will update the index on Photoprism so that it reflects any photos addition, modification or deletion that could have happened in Nextcloud.
+This setup is fine and Photoprism would scan the folders and index the files. But any more photos synced to Nextcloud would not appear on Photoprism as there is no way for Nextcloud to notify Photoprism about it.
+So, I use [ofelia](https://github.com/mcuadros/ofelia) to run to schedule scan job on photoprism. This runs a scan job on Photoprism so that it reflects any photos addition, modification or deletion that could have happened in Nextcloud.
 
-That's it! Now you can go into the Photoprism app and find the folders in `Originals` section.
+That's it! Now you can go into the Photoprism app and find all your photos of your family in one place.
