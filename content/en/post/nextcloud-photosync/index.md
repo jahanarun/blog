@@ -22,33 +22,12 @@ But now, what if you want all the photos taken by your family (with multiple dev
 The ideal tool to use in this case would be [Photoprism](https://github.com/photoprism/photoprism) and configure it to use Nextcloud's data folder.
 
 ## Docker compose files
-I use below docker compose setup Nextcloud and Photoprism.
+I use below docker compose files to setup Nextcloud and Photoprism. Use these as pointer and modify as necessary.
+
+### nextcloud.yml
 
 ```dockerfile
 version: "3.5"
-volumes:
-  nextcloud-html:
-  nextcloud-db:
-  nextcloud-data:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: addr=10.100.50.20,rw,noatime,rsize=1048576,wsize=1048576,tcp,timeo=14
-      device: ":/nextcloud/data"
-  photoprism-db:
-  photoprism-storage:
-  photoprism-alice:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: addr=10.100.50.20,rw,noatime,rsize=1048576,wsize=1048576,tcp,timeo=14
-      device: ":/nextcloud/data/alice/files/Photos/Camera"
-  photoprism-dennis:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: addr=10.100.50.20,rw,noatime,rsize=1048576,wsize=1048576,tcp,timeo=14
-      device: ":/nextcloud/data/dennis/files/Photos/Camera"
 
 services:
   nextcloud-db:
@@ -77,8 +56,8 @@ services:
     links:
       - nextcloud-db
     volumes:
-      - nextcloud-html:/var/www/html
-      - nextcloud-data:/var/www/html/data
+      - /nextcloud/html:/var/www/html
+      - /nextcloud/data:/var/www/html/data
     environment:
       - MYSQL_PASSWORD=${NEXTCLOUD_PASSWORD}
       - MYSQL_DATABASE=nextcloud
@@ -89,9 +68,14 @@ services:
       - NEXTCLOUD_HOSTNAME=${NEXTCLOUD_HOSTNAME}
       - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
       - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
-      - OVERWRITEPROTOCOL=https
     depends_on:
       - nextcloud-db
+
+```
+### photoprism.yml
+
+```dockerfile
+version: "3.5"
 
 services:
   photoprism:
@@ -117,13 +101,8 @@ services:
       HOME: "/photoprism"
     working_dir: "/photoprism"
     volumes:
-      - "photoprism-alice:/photoprism/originals/alice:ro"
-      - "photoprism-dennis:/photoprism/originals/dennis:ro"
-      - type: volume
-        source: photoprism-storage
-        target: /photoprism/storage
-        volume:
-          nocopy: true
+      - /nextcloud/data/alice/files/Photos/Camera:/photoprism/originals/alice:ro
+      - /nextcloud/data/dennis/files/Photos/Camera:/photoprism/originals/dennis:ro
     labels:
       ofelia.enabled: "true"
       ofelia.job-exec.photoprism_index.schedule: "@every 1h"
@@ -153,16 +132,19 @@ services:
     container_name: ofelia
     depends_on:
       - photoprism
-      - nextcloud
     command: daemon --docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 ```
 ## Key mentions
-The key thing to note in the above docker-compose configuration is the `volume` section of Photoprism.
-The two volumes `photoprism-<user>` would be mapped to the same location where the Nextcloud data of the users are. In this example, our Nextcloud data is mapped to an NFS share and Photoprism uses the same directory for its photo directory.
+Use the nextcloud.yml to setup Nextcloud first. You can also download the Nextcloud app from Andriod/Apple App store and setup Photo sync.
 
-This setup is fine and Photoprism would scan the folders and index the files. But any more photos synced to Nextcloud would not appear on Photoprism as there is no way for Nextcloud to notify Photoprism about it.
-So, I use [ofelia](https://github.com/mcuadros/ofelia) to run to schedule scan job on photoprism. This runs a scan job on Photoprism so that it reflects any photos addition, modification or deletion that could have happened in Nextcloud.
+The key thing to note in the above docker-compose configuration is the `volume` section of Photoprism.
+You can see the Photoprism uses bind mount to the folders created by Nextcloud app.
+While using the photoprism.yml file, make sure the volume section is modified to point to the correct source path.
+
+## Index refresh
+This setup is fine and Photoprism would scan the folders and index the files on the first run. But any more photos synced to Nextcloud would not appear on Photoprism as there is no way for Photoprism to know about the photos added to Nextcloud.
+So, I use [ofelia](https://github.com/mcuadros/ofelia) to run to schedule scan job on photoprism. This runs a scan job on Photoprism so that it reflects any new photos added, modified or deleted in Nextcloud.
 
 That's it! Now you can go into the Photoprism app and find all your photos of your family in one place.
