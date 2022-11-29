@@ -13,7 +13,7 @@ Let the first post in this blog be about setting up this blog.
 * Custom domain (optional)
 * Some knowhow on git and GitHub
 
-_I am going to guide you with few links which has a good write-up on how to acheive this. I didn't want to replicate the steps in this post as it may go outdated._
+_I am going to guide you with few links which has a good write-up on how to achieve this. I didn't want to replicate the steps in this post as it may go outdated._
 
 
 This site uses [Hugo](https://gohugo.io/) to generate static site generator. It's pretty simple and easy to people with no prior blogging or technical experience.
