@@ -1,5 +1,5 @@
 ---
-title: "Automatic configuration of user as admin in Amazon Cognito identity pools (federated identities)"
+title: "Assign user as admin in Amazon Cognito identity pools"
 date: 2022-11-30T13:07:52+05:30
 tags: 
 - aws
@@ -16,7 +16,7 @@ tags:
 - jwt
 - authorization
 featured_image: ""
-description: "Authorize users as admin based on email domain"
+description: "Use email domain to auto assign user as admin during initial sign in"
 ---
 ## Problem
 *Let's consider this scenario.*  
@@ -27,7 +27,6 @@ We have a web app where our users can login to it. For authentication, we have s
 Now, we have a need to allow the admin users as well to login. All our admin users have email with domain `@some-company.com`. This `@some-company.com` domain is managed through Google Workspace.
 
 All our admin users have same access, features and capability. We do not need a fine-grain access mechanism.
-
 
 ## Solution
 ### Pre-requisites
