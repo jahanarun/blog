@@ -16,8 +16,8 @@ description: "Separate authorization and authentication across microservices"
 Sometimes you may need to separate authorization and authentication in NestJS.
 
 ## Separation of concerns
-*Consider this situation.*  
-Let's say, we want to build a system based on microservices and all of the services are built using NestJS.  
+*Let's consider this scenario.*  
+We want to build a system based on microservices and all of the services are built using NestJS.  
 The services are split across [domains](https://martinfowler.com/bliki/DomainDrivenDesign.html). We also have a `Gateway` which act as the entry point for the system and it takes care of authentication.
 
 <img src="microservices.svg" width="400">
