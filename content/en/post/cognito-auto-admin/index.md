@@ -1,13 +1,13 @@
 ---
-title: "Assign user as admin in Amazon Cognito identity pools"
+title: "Make user as admin during third party (federation) sign-in Amazon Cognito"
 date: 2022-11-30T13:07:52+05:30
 tags: 
 - aws
 - amazon
 - cognito
-- federated
-- federated identities
-- identity pool
+- federation
+- federated sign-in
+- user pool
 - admin
 - email
 - email domain
@@ -20,7 +20,7 @@ description: "Use email domain to auto assign user as admin during initial sign 
 ---
 ## Problem
 *Let's consider this scenario.*  
-We have a web app where our users can login to it. For authentication, we have setup Amazon Cognito with [federated identities](https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html) for Google. 
+We have a web app where our users can login to it. For authentication, we have setup Amazon Cognito with [federated sign-in](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation.html) for Google. 
 
 <img src="login-page.png" width="400">
 
