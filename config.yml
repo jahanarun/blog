@@ -19,17 +19,6 @@ features:
   - comments
 min_version: 0.64.0
 theme: hugo-theme-stack
-author:
-  name: dexter
-  homepage: https://blog.dexome.com/
-  title: The Dexome blog
-  baseURL: https://blog.dexome.com
-  languageCode: en-us
-  DefaultContentLanguage: en
-  SectionPagesMenu: main
-  Paginate: 3
-  googleAnalytics: ""
-  enableRobotsTXT: false
 languages:
   en:
     title: Dexome
@@ -41,7 +30,18 @@ sitemap:
   filename: sitemap.xml
 params:
   text_color: ""
-  author: ""
+  author:
+    name: dexter
+    homepage: https://blog.dexome.com/
+    title: The Dexome blog
+    baseURL: https://blog.dexome.com
+    email: ""
+    languageCode: en-us
+    DefaultContentLanguage: en
+    SectionPagesMenu: main
+    Paginate: 3
+    googleAnalytics: ""
+    enableRobotsTXT: false
   favicon: ""
   site_logo: /images/dexome.png
   description: The notes from my experiments
